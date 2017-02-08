@@ -4,7 +4,7 @@ module TicTacToe
 
 import Board
 
-board = move X 0 . move O 1 . move X 2 $ newBoard 3
+board = move X 0 . move X 3 . move O 6 $ newBoard
 
 someFunc :: IO ()
 someFunc = print board

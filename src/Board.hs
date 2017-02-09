@@ -40,9 +40,13 @@ combos board = rows ++ cols ++ diags
 newBoard :: Board
 newBoard = replicate (size*size) Nothing
 
-move :: Player -> Position -> Board -> Board
-move p pos board = xs ++ (pure p : tail ys)
-  where (xs, ys) = splitAt pos board
+move :: Player -> Position -> Board -> Maybe Board
+move p pos board
+  | pos < 0 || pos >= length board = Nothing
+  | isJust (board !! pos) = Nothing
+  | otherwise =
+      let (xs, ys) = splitAt pos board
+       in Just $ xs ++ (pure p : tail ys)
 
 winner :: Board -> Maybe Player
 winner board = do

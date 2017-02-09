@@ -11,14 +11,14 @@ data Player = X | O deriving (Eq, Show)
 type Position = Int
 type Board = [Maybe Player]
 
-instance {-# OVERLAPPING #-} Show (Maybe Player) where
-  show Nothing = " "
-  show (Just p) = show p
-
 instance {-# OVERLAPPING #-} Show Board where
-  show = joinRows . chunksOfBoardSize
-    where joinRows = List.intercalate "\n" . map singleRow
-          singleRow = List.intercalate " | " . map show
+  show = formatChunks . chunksOfBoardSize . posOrPlayer
+    where
+      posOrPlayer = zipWith showPosOrPlayer [0..]
+      showPosOrPlayer i Nothing = show i
+      showPosOrPlayer _ (Just p) = show p
+      formatChunks = List.intercalate "\n" . map formatRow
+      formatRow = List.intercalate " | "
 
 chunksOf :: Int -> [a] -> [[a]]
 chunksOf n [] = []

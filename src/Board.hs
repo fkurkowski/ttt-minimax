@@ -1,5 +1,13 @@
 {-# LANGUAGE FlexibleInstances #-}
-module Board where
+module Board
+  ( Board
+  , Player (..)
+  , Position
+  , newBoard
+  , move
+  , winner
+  , gameOver
+  ) where
 
 import Data.List as List
 import Data.Maybe as Maybe

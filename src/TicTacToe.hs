@@ -3,9 +3,10 @@ module TicTacToe
   ) where
 
 import Board
-import System.IO
+import Control.Monad (forever)
 import Data.Char (digitToInt)
 import Data.Maybe (maybe)
+import System.IO
 
 nextPlayer :: Player -> Player
 nextPlayer X = O
@@ -16,8 +17,9 @@ announce (Just p) = show p ++ " has won. Congratulations!"
 announce _ = "It's a draw, folks."
 
 runGame :: IO ()
-runGame = do
+runGame = forever $ do
   hSetBuffering stdout NoBuffering
+  putStr "\n\nStarting a new game..."
   runGame' X newBoard
 
 runGame' :: Player -> Board -> IO ()
